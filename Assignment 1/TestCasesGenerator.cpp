@@ -49,7 +49,7 @@ int main() {
 			int m = rand()%MAXSTRINGSIZE;
 			string s = generateRandomString(m);
 			file_input << s << (s[0]-'a'+2)%allowed.size() << endl;
-			file_output << "NO" << endl;
+			file_output << "NOs" << endl;
 		}
 	}
 	file_input.close();

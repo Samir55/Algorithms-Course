@@ -22,7 +22,16 @@ while read in; do echo $in | ./$program_to_be_judged >> $program_to_be_judged_ou
 
 # Check result and print number of different lines.
 test_cases_output="testcases.out";
-diffs_count=$(diff -U 0 $test_cases_output $program_to_be_judged_output | grep ^@ | wc -l);
+judge_output_array=($(cat $test_cases_output));
+program_output_array=($(cat $program_to_be_judged_output));
+i=0;
+matched_count=0;
+while [ $i -lt 100 ]; do
+  if [ ${judge_output_array[i]} = ${program_output_array[i]} ]; then
+    let matched_count+=1;
+  fi
+  let i+=1;
+done
 
 # Remove any created files.
 $(unlink $test_cases_generator_exec_name);
@@ -32,12 +41,14 @@ $(unlink $test_cases_output);
 $(unlink $program_to_be_judged_output);
 
 # Print verdict.
-if [ $diffs_count -eq 0 ]; then
+if [ $matched_count -eq 100 ]; then
   echo "VERDICT: Accepted"
-  echo "user output" $diffs_count "expected: 0";
+  echo "user output" $matched_count "expected: 0";
+  echo "Number of matches " $matched_count;
 else
   echo "VERDICT: Wrong answer"
-  echo "user output:" $diffs_count "expected: 0";
+  echo "user output:" $matched_count "expected: 0";
+  echo "Number of mismatches " $(expr 100 - $matched_count);
 fi
 
 else
