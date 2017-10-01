@@ -14,9 +14,9 @@ using namespace std;
 #define MAXSTRINGSIZE 20
 #define NUMBEROFSTRINGS 100
 #define MINNUMBEROFPALINDROMES 40
+string allowed = "abcdefghiklmnopqrstuvwxyz";
 
 string generateRandomString(int n) {
-	string allowed = "abcdefghiklmnopqrstuvwxyz";
 	string ret = "";
 	while (n <= 0) n = rand()%MAXSTRINGSIZE;
 	lp(i, n) {
@@ -33,6 +33,7 @@ int main() {
 	file_output.open("testcases.out");
 	int c =  0;
 	int max_number_of_palindromes = MINNUMBEROFPALINDROMES + rand()%10;
+
 	lp(i, NUMBEROFSTRINGS) {
 		if (c <= max_number_of_palindromes) {
 			// Generate a palindrome string.
@@ -43,14 +44,11 @@ int main() {
 			file_input << s << t << endl;
 			file_output << "YES" << endl;
 			c++;
-		}
-		else {
+		} else {
 			// Generate a non palindrome string.
 			int m = rand()%MAXSTRINGSIZE;
 			string s = generateRandomString(m);
-			m = (m+1)%MAXSTRINGSIZE;
-			string t = generateRandomString(m);
-			file_input << s << t << endl;
+			file_input << s << (s[0]-'a'+2)%allowed.size() << endl;
 			file_output << "NO" << endl;
 		}
 	}
