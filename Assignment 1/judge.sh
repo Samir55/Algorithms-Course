@@ -43,11 +43,10 @@ $(unlink $program_to_be_judged_output);
 # Print verdict.
 if [ $matched_count -eq 100 ]; then
   echo "VERDICT: Accepted"
-  echo "user output" $matched_count "expected: 0";
   echo "Number of matches " $matched_count;
 else
   echo "VERDICT: Wrong answer"
-  echo "user output:" $matched_count "expected: 0";
+  echo "user output:" $matched_count "expected: 100";
   echo "Number of mismatches " $(expr 100 - $matched_count);
 fi
 
