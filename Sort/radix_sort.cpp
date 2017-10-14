@@ -40,7 +40,7 @@ void radix_sort (vector<int>& vec) {
  
 int main()
 {
-    vector<int> test_vec = { 170, 45, 75, -90, -802, 24, 2, 66 };
+    vector<int> test_vec = { 22, 99, 365, -984, -802, 12, 55, 0, 88 };
  
     radix_sort(test_vec);
     
